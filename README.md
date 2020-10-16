@@ -1,2 +1,6 @@
-# SimpleVcdParser
-Simples VCD file parser
+# Simple VCD Parser
+
+to test run:
+```
+ python3 test/test.py
+```
