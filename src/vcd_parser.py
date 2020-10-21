@@ -34,6 +34,7 @@ class VcdParser:
                 type = var_match.group('type')
                 width =   var_match.group('width')
                 signals_store.signals[id] = Signal(name,id,type,width)
+                signals_store.name_id_map[name] = id
             else:
                 upscope_match = re.match(upscope_str, line)
                 if upscope_match:

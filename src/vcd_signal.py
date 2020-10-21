@@ -7,7 +7,7 @@ class Signal:
         self.width = width
         self.values = []
     
-    def getValues(self, max_time_stamp:int)->[str]:
+    def get_values(self, max_time_stamp:int)->[str]:
         size = len(self.values)
         new_values = []
         self.values.append((self.values[size-1][0],max_time_stamp))
@@ -27,6 +27,7 @@ class Signal:
 class SignalStore:
     def __init__(self):
         self.signals = {}
+        self.name_id_map = {}
         self.timescale = 1
         self.unit = 's'
         self.max_time_stamp = 0
@@ -46,3 +47,7 @@ class SignalStore:
     
     def setMaxTimeStamp(self,timestamp:int):
         self.max_time_stamp = timestamp
+    
+    def get_signal(self,name):
+        id = self.name_id_map[name]
+        return self.signals[id]
