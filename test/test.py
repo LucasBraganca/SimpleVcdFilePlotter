@@ -4,12 +4,10 @@ import sys
 mypath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.vcd_parser import VcdParser
+from src.vcd_plotter import VcdPlotter
 
-vcd_parser = VcdParser()
-ss = vcd_parser.parse(mypath+'/out.vcd')
+vcd_plt = VcdPlotter(mypath+'/out.vcd')
 
-for s in ss.signals:
-    print(ss.signals[s])
-    print(ss.signals[s].getValues(ss.getMaxTimeStamp()))
-    print()
+vcd_plt.save_figure('teste.pdf',['tb.clk','tb.vadd.a'],0,100,'bin')
+
+

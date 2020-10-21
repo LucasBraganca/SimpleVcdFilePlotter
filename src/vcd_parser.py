@@ -32,7 +32,7 @@ class VcdParser:
                 name = ".".join(scopes + [var_match.group('name')])
                 id   = var_match.group('id')
                 type = var_match.group('type')
-                width =   var_match.group('width')
+                width =  int(var_match.group('width'))
                 signals_store.signals[id] = Signal(name,id,type,width)
                 signals_store.name_id_map[name] = id
             else:
@@ -63,8 +63,8 @@ class VcdParser:
         timestamp = 0
         for line in file:
             if line.startswith('#'):
-                timestamp = signals_store.get_timescale() * int(line[1:])
-                signals_store.setMaxTimeStamp(max(signals_store.getMaxTimeStamp(),timestamp))
+                timestamp = signals_store.get_time_scale() * int(line[1:])
+                signals_store.set_max_time_stamp(max(signals_store.get_max_time_stamp(),timestamp))
             else:
                 match = re.match(r'[b]?(?P<value>([\d]+|x))[ ]?(?P<id>\S+)$', line)
                 if match:

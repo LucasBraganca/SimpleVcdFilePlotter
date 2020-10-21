@@ -28,25 +28,25 @@ class SignalStore:
     def __init__(self):
         self.signals = {}
         self.name_id_map = {}
-        self.timescale = 1
+        self.time_scale = 1
         self.unit = 's'
         self.max_time_stamp = 0
     
-    def update_timescale(self,timescale:int,unit:str):
-        self.timescale = timescale
+    def update_timescale(self,time_scale:int,unit:str):
+        self.time_scale = time_scale
         self.unit = unit
     
-    def get_timescale(self)->int:
-        return self.timescale
+    def get_time_scale(self)->int:
+        return self.time_scale
     
     def get_unit(self)->str:
         return self.unit
     
-    def getMaxTimeStamp(self)->int:
+    def get_max_time_stamp(self)->int:
         return self.max_time_stamp
     
-    def setMaxTimeStamp(self,timestamp:int):
-        self.max_time_stamp = timestamp
+    def set_max_time_stamp(self,time_stamp:int):
+        self.max_time_stamp = time_stamp
     
     def get_signal(self,name):
         id = self.name_id_map[name]
