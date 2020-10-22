@@ -47,7 +47,7 @@ class VcdPlotter():
                         if 'x' in value_before:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
                         elif 'z' in value_before:
-                            plt.axvline(x=j, ymin=start_vert+0.25/size_y, ymax=end_vert, color='y')
+                            plt.axvline(x=j, ymin=start_vert, ymax=start_vert+0.25/size_y, color='y')
                         else:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
                         plt.text(j+0.08, i+0.1, value[2:], fontsize=14)
