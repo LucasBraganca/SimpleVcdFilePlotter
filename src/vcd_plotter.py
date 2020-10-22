@@ -38,13 +38,13 @@ class VcdPlotter():
                 end_hor   = j/size_x + 1/size_x
                 if value[2:] == '0':
                     if j == 0:
-                        plt.text(j+0.1, i+0.1, value[2:], fontsize=14)
+                        plt.text(j+0.1, i+0.05, value[2:], fontsize=14)
                     if value != value_before:
                         if 'x' in value_before:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
                         else:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
-                        plt.text(j+0.1, i+0.1, value[2:], fontsize=14)
+                        plt.text(j+0.1, i+0.05, value[2:], fontsize=14)
                     plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='g') 
                 elif value[2:] == '1':
                     if j == 0 or value != value_before:
@@ -52,7 +52,7 @@ class VcdPlotter():
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
                         else:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
-                        plt.text(j+0.1, i+0.1, value[2:], fontsize=14)
+                        plt.text(j+0.1, i+0.05, value[2:], fontsize=14)
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='g')
                 elif 'z' in value:
                     plt.axhline(y=i+0.25, xmin=0.0, xmax=1.0, color='y')
@@ -69,14 +69,14 @@ class VcdPlotter():
                             if count > 2:
                                 break
                         if count > 1:
-                            plt.text(j+0.1, i+0.1, value, fontsize=14, color='r')
+                            plt.text(j+0.1, i+0.05, value, fontsize=14, color='r')
                         else:
-                            plt.text(j+0.1, i+0.1, value[:5] + "...", fontsize=14, color='r')
+                            plt.text(j+0.1, i+0.05, value[:5] + "...", fontsize=14, color='r')
                     plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='r')
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='r')
                 else:
                     if j == 0 or value != value_before:  
-                        plt.text(j+0.1, i+0.1, value, fontsize=14)
+                        plt.text(j+0.1, i+0.05, value, fontsize=14)
                         plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
                     plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='g')
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='g')
