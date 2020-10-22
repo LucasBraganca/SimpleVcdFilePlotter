@@ -66,11 +66,12 @@ class VcdPlotter():
                                 count += 1
                             else:
                                 break
-                            if count > 2:
+                            if count > size_x-j:
                                 break
                         if count > 1:
                             plt.text(j+0.08, i+0.1, value, fontsize=14, color='r')
                         else:
+                            print(len(value))
                             plt.text(j+0.08, i+0.1, value[:5] + "...", fontsize=14, color='r')
                     plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='r')
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='r')
