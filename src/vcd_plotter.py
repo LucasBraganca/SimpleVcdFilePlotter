@@ -77,8 +77,11 @@ class VcdPlotter():
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='r')
                 else:
                     if j == 0 or value != value_before:  
-                        plt.text(j+0.08, i+0.1, value, fontsize=14)
                         plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
+                        if len(value) > count * 7:
+                            plt.text(j+0.08, i+0.1, value[:count*7-3] + "...", fontsize=14)
+                        else:
+                            plt.text(j+0.08, i+0.1, value, fontsize=14, color='r')
                     plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='g')
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='g')
             i -= 1
