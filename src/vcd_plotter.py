@@ -129,7 +129,9 @@ class VcdPlotter():
                     
         return data
                 
-
+    def print_signals(self):
+        for s in self.__signal_store.signals:
+            print(self.__signal_store.signals[s])
     
     def save_figure(self,filename:str, signals_list:[str], start_time:int, stop_time:int, base:str):
         data = {}

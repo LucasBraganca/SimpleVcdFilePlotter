@@ -8,6 +8,4 @@ from src.vcd_plotter import VcdPlotter
 
 vcd_plt = VcdPlotter(mypath+'/out.vcd')
 
-vcd_plt.save_figure('teste.pdf',['tb.clk','tb.vadd.a'],0,100,'bin')
-
-
+vcd_plt.save_figure('teste.pdf',['tb.clk','tb.vadd.a','tb.z'],0,100,'bin')

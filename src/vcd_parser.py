@@ -66,7 +66,7 @@ class VcdParser:
                 timestamp = signals_store.get_time_scale() * int(line[1:])
                 signals_store.set_max_time_stamp(max(signals_store.get_max_time_stamp(),timestamp))
             else:
-                match = re.match(r'[b]?(?P<value>([\d]+|x))[ ]?(?P<id>\S+)$', line)
+                match = re.match(r'[b]?(?P<value>([\d]+|x|z))[ ]?(?P<id>\S+)$', line)
                 if match:
                     id = match.group('id')
                     value = match.group('value')
