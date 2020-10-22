@@ -1,5 +1,5 @@
 $date
-	Thu Oct 22 19:53:49 2020
+	Thu Oct 22 20:11:22 2020
 $end
 $version
 	Icarus Verilog
@@ -247,6 +247,12 @@ z.
 z.
 #56
 0+
-0.
+x.
 #57
+1+
+z.
+#58
+0+
+1.
+#59
 1+
