@@ -66,6 +66,10 @@ class VcdPlotter():
                     if j > 0 and value != value_before:
                         if 'x' in value_before: 
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
+                        elif value_before[2:] == '1':
+                            plt.axvline(x=j, ymin=start_vert+0.25/size_y, ymax=end_vert, color='g')
+                        elif value_before[2:] == '0':
+                            plt.axvline(x=j, ymin=start_vert, ymax=start_vert+0.25/size_y, color='g')
                         else:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
                     plt.axhline(y=i+0.25, xmin=start_hor, xmax=end_hor, color='y')
