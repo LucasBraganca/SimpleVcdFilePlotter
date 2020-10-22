@@ -35,7 +35,7 @@ class VcdPlotter():
             id = self.__signal_store.name_id_map[s]
             raw = self.__signal_store.signals[id].get_values(self.__signal_store.get_max_time_stamp())
             data[s] = self.convert(base,raw[start_time:stop_time],self.__signal_store.signals[id].width)
-        data[self.__signal_store.get_time_scale] = []
+        data[self.__signal_store.get_unit()] = []
         size_y = len(data)
         size_x = stop_time - start_time + 1
         plt.figure(figsize=(size_x,size_y))
