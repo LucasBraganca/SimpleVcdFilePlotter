@@ -47,7 +47,7 @@ class VcdPlotter():
                         if 'x' in value_before:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
                         elif 'z' in value_before:
-                            plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='y') 
+                            plt.axvline(x=j, ymin=start_vert+0.25/size_y, ymax=end_vert, color='y')
                         else:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
                         plt.text(j+0.08, i+0.1, value[2:], fontsize=14)
@@ -57,14 +57,14 @@ class VcdPlotter():
                         if j > 0 and 'x' in value_before:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
                         elif j > 0 and 'z' in value_before:
-                            plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='y')
+                            plt.axvline(x=j, ymin=start_vert+0.25/size_y, ymax=end_vert, color='y')
                         else:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
                         plt.text(j+0.08, i+0.1, value[2:], fontsize=14)
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='g')
                 elif 'z' in value:
                     if j == 0 or value != value_before:
-                        plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='y')
+                        plt.axvline(x=j, ymin=start_vert+0.25/size_y, ymax=end_vert, color='y')
                     plt.axhline(y=i+0.25, xmin=start_hor, xmax=end_hor, color='y')
                 elif 'x' in value:
                     if j == 0 or value != value_before:
