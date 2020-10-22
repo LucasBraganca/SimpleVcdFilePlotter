@@ -60,7 +60,18 @@ class VcdPlotter():
                 elif 'x' in value:
                     if j == 0 or value != value_before:
                         plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
-                        plt.text(j+0.1, i+0.1, value, fontsize=14, color='r')
+                        count = 0
+                        for k in data[key][j:]:
+                            if value == k:
+                                count += 1
+                            else:
+                                break
+                            if count > 2:
+                                break
+                        if count > 1:
+                            plt.text(j+0.1, i+0.1, value, fontsize=14, color='r')
+                        else:
+                            plt.text(j+0.1, i+0.1, value[:3] + "...", fontsize=14, color='r')
                     plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='r')
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='r')
                 else:
