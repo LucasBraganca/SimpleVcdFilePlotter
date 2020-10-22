@@ -108,7 +108,7 @@ class VcdPlotter():
 
         xticks = range(0,size_x)
         labelsx = range(start_time, stop_time+1)
-        yticks = [0] + [i+0.25 for i in range(size_y-1, -1, -1)]
+        yticks = [i+0.25 for i in range(size_y-1, -1, -1)]
         labelsy = list(data.keys())
 
         plt.yticks(yticks, labelsy)
