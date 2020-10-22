@@ -17,6 +17,17 @@ class VcdPlotter():
     def show(self,signals_list:[str], start_time:int, stop_time:int, base:str):
         self.plot(signals_list, start_time, stop_time, base)
         plt.show()
+    
+    def counter(self, value, size_x, j, data):
+        count = 0
+        for k in data[j:]:
+            if value == k:
+                count += 1
+            else:
+                return count
+            if count > size_x-j:
+                return count
+        return count
             
     def plot(self,signals_list:[str], start_time:int, stop_time:int, base:str):
         data = {}
@@ -76,28 +87,21 @@ class VcdPlotter():
                 elif 'x' in value:
                     if j == 0 or value != value_before:
                         plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
-                        count = 0
-                        for k in data[key][j:]:
-                            if value == k:
-                                count += 1
-                            else:
-                                break
-                            if count > size_x-j:
-                                break
+                        count = self.counter(value, size_x, j, data[key])
                         if len(value) > count * 7:
                             plt.text(j+0.08, i+0.1, value[:count*7-3] + "...", fontsize=14, color='r')
                         else:
                             plt.text(j+0.08, i+0.1, value, fontsize=14, color='r')
-                            
                     plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='r')
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='r')
                 else:
                     if j == 0 or value != value_before:  
                         plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
+                        count = self.counter(value, size_x, j, data[key])
                         if len(value) > count * 7:
                             plt.text(j+0.08, i+0.1, value[:count*7-3] + "...", fontsize=14)
                         else:
-                            plt.text(j+0.08, i+0.1, value, fontsize=14, color='r')
+                            plt.text(j+0.08, i+0.1, value, fontsize=14, color='g')
                     plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='g')
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='g')
             i -= 1
