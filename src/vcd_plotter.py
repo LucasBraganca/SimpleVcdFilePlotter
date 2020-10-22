@@ -15,6 +15,10 @@ class VcdPlotter():
         self.__signal_store = self.__vcd_parser.parse(vcd_file)
          
     def show(self,signals_list:[str], start_time:int, stop_time:int, base:str):
+        self.plot(signals_list, start_time, stop_time, base)
+        plt.show()
+            
+    def plot(self,signals_list:[str], start_time:int, stop_time:int, base:str):
         data = {}
         for s in signals_list:
             id = self.__signal_store.name_id_map[s]
@@ -42,6 +46,8 @@ class VcdPlotter():
                     if value != value_before:
                         if 'x' in value_before:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
+                        elif 'z' in value_before:
+                            plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='y')
                         else:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
                         plt.text(j+0.08, i+0.1, value[2:], fontsize=14)
@@ -50,13 +56,14 @@ class VcdPlotter():
                     if j == 0 or value != value_before:
                         if j > 0 and 'x' in value_before:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
+                        elif j > 0 and 'z' in value_before:
+                            plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='y')
                         else:
                             plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
                         plt.text(j+0.08, i+0.1, value[2:], fontsize=14)
                     plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='g')
                 elif 'z' in value:
-                    plt.axhline(y=i+0.25, xmin=0.0, xmax=1.0, color='y')
-                    break
+                    plt.axhline(y=i+0.25, xmin=start_hor, xmax=end_hor, color='y')
                 elif 'x' in value:
                     if j == 0 or value != value_before:
                         plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
@@ -93,11 +100,9 @@ class VcdPlotter():
 
         plt.yticks(yticks, labelsy)
         plt.xticks(xticks,labelsx)
-
         plt.grid(linestyle='--',axis='x')
-        plt.show()
-            
-            
+        
+    
     def convert(self, base:str, data:[str], data_width:int):
         for i in range(len(data)):
             if base == 'dec':
@@ -136,82 +141,5 @@ class VcdPlotter():
             print(self.__signal_store.signals[s])
     
     def save_figure(self,filename:str, signals_list:[str], start_time:int, stop_time:int, base:str):
-        data = {}
-        for s in signals_list:
-            id = self.__signal_store.name_id_map[s]
-            raw = self.__signal_store.signals[id].get_values(self.__signal_store.get_max_time_stamp())
-            data[s] = self.convert(base,raw[start_time:stop_time],self.__signal_store.signals[id].width)
-        data[''] = []
-        size_y = len(data)
-        size_x = stop_time - start_time + 1
-        plt.figure(figsize=(size_x,size_y))
-        plt.axis([0,size_x,0,size_y])
-        i = size_y-1
-        for key in data:
-            start_vert = i/size_y 
-            end_vert   = i/size_y + 0.5/size_y
-            for j in range(len(data[key])):
-                if j >= size_x: # up to size_x
-                    break
-                value = data[key][j]
-                value_before = data[key][j-1]
-                start_hor = j/size_x
-                end_hor   = j/size_x + 1/size_x
-                if value[2:] == '0':
-                    if j == 0:
-                        plt.text(j+0.1, i+0.1, value[2:], fontsize=14)
-                    if value != value_before:
-                        if 'x' in value_before:
-                            plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
-                        else:
-                            plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
-                        plt.text(j+0.1, i+0.1, value[2:], fontsize=14)
-                    plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='g') 
-                elif value[2:] == '1':
-                    if j == 0:
-                        plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
-                        plt.text(j+0.1, i+0.1, value[2:], fontsize=14)
-                    if value != value_before:
-                        if 'x' in value_before:
-                            plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
-                        else:
-                            plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
-                        plt.text(j+0.1, i+0.1, value[2:], fontsize=14)
-                    plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='g')
-                elif 'x' in value:
-                    if j == 0 or value != value_before:
-                        plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
-                        plt.text(j+0.1, i+0.1, value, fontsize=14, color='r')
-                        plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='r')
-                        plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='r')
-                    else:
-                        if 'z' in value:
-                            plt.axhline(y=i+0.25, xmin=0.0, xmax=1.0, color='y')
-                            break
-                elif 'x' in value:
-                    if j == 0:
-                        plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='r')
-                        plt.text(j+0.1, i+0.1, value, fontsize=14, color='r')
-                    plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='r')
-                    plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='r')
-                else:
-                    if j == 0:  
-                        plt.text(j+0.1, i+0.1, value, fontsize=14)
-                        plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
-                    if value != value_before:
-                        plt.text(j+0.1, i+0.1, value, fontsize=14)
-                        plt.axvline(x=j, ymin=start_vert, ymax=end_vert, color='g')
-                    plt.axhline(y=i, xmin=start_hor, xmax=end_hor, color='g')
-                    plt.axhline(y=i+0.5, xmin=start_hor, xmax=end_hor, color='g')
-            i -= 1
-
-        xticks = range(0,size_x)
-        labelsx = range(start_time,stop_time+1)
-        yticks = [ i+0.25 for i in range(size_y-1, -1, -1)]
-        labelsy = list(data.keys())
-
-        plt.yticks(yticks, labelsy)
-        plt.xticks(xticks,labelsx)
-
-        plt.grid(linestyle='--',axis='x')
+        self.plot(signals_list, start_time, stop_time, base)
         plt.savefig(filename)
